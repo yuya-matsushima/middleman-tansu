@@ -1,0 +1,6 @@
+h2.index Current Directory
+
+ul.children
+  - children_pages.each do |page|
+    li
+      == link_to(page_name(page), page_url(page))
