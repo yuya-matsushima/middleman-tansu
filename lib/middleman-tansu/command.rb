@@ -1,5 +1,7 @@
+require "middleman-core/cli"
+
 module Middleman
-  module Tansu
+  module Cli
     # This class provides a "tansu" command for the middleman CLI.
     class Tansu < Thor
       include Thor::Actions
@@ -22,10 +24,14 @@ module Middleman
         aliases: "-f",
         desc: "The file extension to create the Tansu page",
         default: "md"
+      method_option "date",
+        aliases: "-d",
+        desc: "The date to create the Tansu page with (defaults to now)"
       def tansu(path)
         paths = path.split("/")
         title = paths.pop
         ext   = options[:file]
+        date  = options[:date] ? Time.parse(options[:date]) : Time.now
 
         if Regexp.new(".html.#{ext}$") !~ title
           filename = "#{title}.html.#{ext}"
@@ -44,18 +50,18 @@ module Middleman
         end
 
         File.open(file, 'w') do |f|
-          f.puts frontmatter(title)
+          f.puts frontmatter(title, date)
         end
         puts "create new article: #{file}"
       end
 
       no_tasks do
-        def frontmatter(title)
+        def frontmatter(title, date)
           rows = []
           rows << "---"
           rows << "title: #{title}"
           rows << "author: #{ENV['USER']}"
-          rows << "date: #{Time.now}"
+          rows << "date: #{date}"
           rows << "---"
           rows << "\n\n"
 
