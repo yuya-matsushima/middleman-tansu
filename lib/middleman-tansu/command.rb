@@ -18,12 +18,17 @@ module Middleman
       end
 
       desc "tansu path/to/TITLE", "Create a new Tansu page with markdown"
+      method_option "file",
+        aliases: "-f",
+        desc: "The file extension to create the Tansu page",
+        default: "md"
       def tansu(path)
         paths = path.split("/")
         title = paths.pop
+        ext   = options[:file]
 
-        if /\.html\.md$/ !~ title
-          filename = title + '.html.md'
+        if Regexp.new(".html.#{ext}$") !~ title
+          filename = "#{title}.html.#{ext}"
         end
 
         dir  = destination_dir(paths)
