@@ -1,8 +1,9 @@
 module Middleman
   module Tansu
     class Drawer
-      def initialize(app, exclude_path = [])
+      def initialize(app, options, exclude_path = [])
         @config       = app.config
+        @options      = options
         @dirs         = ["/"]
         @exclude_path = exclude(exclude_path)
         search_directory(@config.source)
@@ -35,7 +36,7 @@ module Middleman
           @config.js_dir,
           @config.css_dir,
           @config.layouts_dir,
-          @config.templates_dir
+          @options.templates_dir
         ]
         default | path
       end
