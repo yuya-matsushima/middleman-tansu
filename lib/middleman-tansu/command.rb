@@ -1,4 +1,5 @@
 require "middleman-core/cli"
+require "active_support/core_ext/time/zones"
 
 module Middleman
   module Cli
@@ -9,6 +10,11 @@ module Middleman
       check_unknown_options!
 
       namespace :tansu
+
+      def initialize(*args)
+        super
+        Time.zone = Time.zone || "UTC"
+      end
 
       def self.source_root
         ENV['MM_ROOT']
@@ -31,7 +37,7 @@ module Middleman
         paths = path.split("/")
         title = paths.pop
         ext   = options[:file]
-        date  = options[:date] ? Time.parse(options[:date]) : Time.now
+        date  = options[:date] ? Time.zone.parse(options[:date]) : Time.zone.now
 
         if Regexp.new(".html.#{ext}$") !~ title
           filename = "#{title}.html.#{ext}"
@@ -52,7 +58,7 @@ module Middleman
         File.open(file, 'w') do |f|
           f.puts frontmatter(title, date)
         end
-        puts "create new article: #{file}"
+        puts "create new tansu page: #{file}"
       end
 
       no_tasks do

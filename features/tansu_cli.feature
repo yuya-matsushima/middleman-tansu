@@ -36,4 +36,4 @@ Feature: Tansu Command
     And a file named "source/foo.html.md" should exist
     And the file "source/foo.html.md" should contain "title: foo"
     And the file "source/foo.html.md" should contain "author:"
-    And the file "source/foo.html.md" should contain "date: 2014-01-04"
+    And the file "source/foo.html.md" should contain "date: 2014-01-04 00:00:00 UTC"
