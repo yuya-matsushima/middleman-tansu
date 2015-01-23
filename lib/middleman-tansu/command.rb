@@ -33,11 +33,15 @@ module Middleman
       method_option "date",
         aliases: "-d",
         desc: "The date to create the Tansu page with (defaults to now)"
+      method_option "author",
+        aliases: "-a",
+        desc: "The author name to create the Tansu page (defaults to ENV['USER'])"
       def tansu(path)
-        paths = path.split("/")
-        title = paths.pop
-        ext   = options[:file]
-        date  = options[:date] ? Time.zone.parse(options[:date]) : Time.zone.now
+        paths  = path.split("/")
+        title  = paths.pop
+        ext    = options[:file]
+        date   = options[:date] ? Time.zone.parse(options[:date]) : Time.zone.now
+        author = options[:author] || ENV["USER"]
 
         if Regexp.new(".html.#{ext}$") !~ title
           filename = "#{title}.html.#{ext}"
@@ -56,17 +60,17 @@ module Middleman
         end
 
         File.open(file, 'w') do |f|
-          f.puts frontmatter(title, date)
+          f.puts frontmatter(title, author, date)
         end
         puts "create new tansu page: #{file}"
       end
 
       no_tasks do
-        def frontmatter(title, date)
+        def frontmatter(title, author, date)
           rows = []
           rows << "---"
           rows << "title: #{title}"
-          rows << "author: #{ENV['USER']}"
+          rows << "author: #{author}"
           rows << "date: #{date}"
           rows << "---"
           rows << "\n\n"

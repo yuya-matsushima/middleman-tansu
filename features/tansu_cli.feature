@@ -29,7 +29,7 @@ Feature: Tansu Command
     And the file "source/foo.html.slim" should contain "author:"
     And the file "source/foo.html.slim" should contain "date:"
 
-  Scenario: `middleman tansu -d 2014-01-22` create  file with date frontmatter
+  Scenario: `middleman tansu -d 2014-01-22` create file with date frontmatter
     Given a fixture app "empty-app"
     When I run `middleman tansu -d 2014-01-04 foo`
     Then the exit status should be 0
@@ -37,3 +37,12 @@ Feature: Tansu Command
     And the file "source/foo.html.md" should contain "title: foo"
     And the file "source/foo.html.md" should contain "author:"
     And the file "source/foo.html.md" should contain "date: 2014-01-04 00:00:00 UTC"
+
+  Scenario: `middleman tansu -a "John Doe"` create file with author frontmatter
+    Given a fixture app "empty-app"
+    When I run `middleman tansu -a "John Doe" foo`
+    Then the exit status should be 0
+    And a file named "source/foo.html.md" should exist
+    And the file "source/foo.html.md" should contain "title: foo"
+    And the file "source/foo.html.md" should contain "author: John Doe"
+    And the file "source/foo.html.md" should contain "date:"
