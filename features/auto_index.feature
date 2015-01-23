@@ -65,7 +65,7 @@ Feature: Auto index page
       """
       activate :tansu, :index_template_name => "template.html"
       """
-      And a file named "source/templates/template.html.erb" with:
+    And a file named "source/templates/template.html.erb" with:
       """
       <h1>template.html.erb</h1>
       """
@@ -82,3 +82,34 @@ Feature: Auto index page
     And the file "build/empty_dir/sub_empty_dir/index.html" should contain "template.html.erb"
     And the file "build/empty_dir/sub_empty_dir/sample.html" should contain "Sample"
     And the file "build/not_empty_dir/index.html" should contain "Not Empty"
+
+  Scenario: Use :templates_dir option
+    Given a fixture app "drawer-app"
+    And a file named "config.rb" with:
+      """
+      activate :tansu, :templates_dir => "alt_templates"
+      """
+    And a directory named "source/alt_templates"
+    And a file named "source/alt_templates/index.html.erb" with:
+      """
+      <h1>Alt Template</h1>
+      """
+    And a file named "source/templates/index.html.erb" with:
+      """
+      <h1>Old Template</h1>
+      """
+    When I run `middleman build`
+    Then the exit status should be 0
+    And the following files should exist:
+      | build/index.html                          |
+      | build/empty_dir/index.html                |
+      | build/empty_dir/sub_empty_dir/index.html  |
+      | build/empty_dir/sub_empty_dir/sample.html |
+      | build/not_empty_dir/index.html            |
+      | build/templates/index.html                |
+    And the file "build/index.html" should contain "Alt Template"
+    And the file "build/empty_dir/index.html" should contain "Alt Template"
+    And the file "build/empty_dir/sub_empty_dir/index.html" should contain "Alt Template"
+    And the file "build/empty_dir/sub_empty_dir/sample.html" should contain "Sample"
+    And the file "build/not_empty_dir/index.html" should contain "Not Empty"
+    And the file "build/templates/index.html" should contain "Old Template"
