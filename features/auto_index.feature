@@ -58,3 +58,27 @@ Feature: Auto index page
     And the following files should not exist:
       | build/exclude/index.html                  |
       | build/not_exclude/exclude/index.html      |
+
+  Scenario: Use :index_template_name option
+    Given a fixture app "drawer-app"
+    And a file named "config.rb" with:
+      """
+      activate :tansu, :index_template_name => "template.html"
+      """
+      And a file named "source/templates/template.html.erb" with:
+      """
+      <h1>template.html.erb</h1>
+      """
+    When I run `middleman build`
+    Then the exit status should be 0
+    And the following files should exist:
+      | build/index.html                          |
+      | build/empty_dir/index.html                |
+      | build/empty_dir/sub_empty_dir/index.html  |
+      | build/empty_dir/sub_empty_dir/sample.html |
+      | build/not_empty_dir/index.html            |
+    And the file "build/index.html" should contain "template.html.erb"
+    And the file "build/empty_dir/index.html" should contain "template.html.erb"
+    And the file "build/empty_dir/sub_empty_dir/index.html" should contain "template.html.erb"
+    And the file "build/empty_dir/sub_empty_dir/sample.html" should contain "Sample"
+    And the file "build/not_empty_dir/index.html" should contain "Not Empty"
