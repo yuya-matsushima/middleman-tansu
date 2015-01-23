@@ -1,4 +1,5 @@
 require "middleman-tansu/drawer"
+require "middleman-tansu/helpers"
 
 module Middleman
   module Tansu
@@ -7,8 +8,15 @@ module Middleman
       option :templates_dir, "templates", "Path of template directory's path in source direcotry"
       option :index_template_name, "index.html", "Name of index template"
 
+      # Helpers for use within templates and layouts.
+      self.defined_helpers = [ ::Middleman::Tansu::Helpers ]
+
       def initialize(app, options_hash = {}, &block)
         super
+        app.config.tansu = {
+          :exclude_path  => options[:exclude_path],
+          :templates_dir => options[:templates_dir]
+        }
       end
 
       def after_configuration
