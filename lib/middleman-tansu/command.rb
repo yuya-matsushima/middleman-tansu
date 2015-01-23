@@ -4,6 +4,10 @@ require "active_support/core_ext/time/zones"
 module Middleman
   module Cli
     # This class provides a "tansu" command for the middleman CLI.
+    # "tansu" command has some options:
+    # - '-f': set file extension, default "md"
+    # - '-d': set date(yyyy-mm-dd). Default is now. This is used in Frontmatter.
+    # - '-a': set author name. Default "ENV['USER']".
     class Tansu < Thor
       include Thor::Actions
 
@@ -25,17 +29,17 @@ module Middleman
         true
       end
 
-      desc "tansu path/to/TITLE", "Create a new Tansu page with markdown"
+      desc "tansu path/to/TITLE", "Create a new Tansu page"
       method_option "file",
         aliases: "-f",
-        desc: "The file extension to create the Tansu page",
+        desc: "The file extension to create the Tansu page (default: md)",
         default: "md"
       method_option "date",
         aliases: "-d",
-        desc: "The date to create the Tansu page with (defaults to now)"
+        desc: "The date to create the Tansu page with (default: Time.zone.now)"
       method_option "author",
         aliases: "-a",
-        desc: "The author name to create the Tansu page (defaults to ENV['USER'])"
+        desc: "The author name to create the Tansu page (default: ENV['USER'])"
       def tansu(path)
         paths  = path.split("/")
         title  = paths.pop
