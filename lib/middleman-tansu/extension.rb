@@ -9,7 +9,7 @@ module Middleman
       option :index_template_name, "index.html", "Name of index template"
 
       # Helpers for use within templates and layouts.
-      self.defined_helpers = [ Middleman::Tansu::Helpers ]
+      self.defined_helpers = [ ::Middleman::Tansu::Helpers ]
 
       def initialize(app, options_hash = {}, &block)
         super
