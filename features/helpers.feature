@@ -31,3 +31,15 @@ Feature: Helpers
     And the helper result "build/index.html" should contain '<ul class="bread-links">'
     And the helper result "build/index.html" should contain '<li class="root"><a href="/">Home</a></li>'
 
+  Scenario: `children_pages` helper
+    Given a fixture app "children-pages-app"
+    And a file named "source/templates/index.html.erb" with:
+      """
+      <ul>
+        <% children_pages.each do |page| %>
+          <li><%= link_to(page_name(page.path), page_url(page.path)) %></li>
+        <% end %>
+      </ul>
+      """
+    When I run `middleman build --verbose`
+    Then the exit status should be 0

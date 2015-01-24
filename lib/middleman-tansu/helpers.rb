@@ -28,6 +28,57 @@ module Middleman
 
         "<ul class=\"#{klass}\">\n#{li.join("\n")}\n</ul>"
       end
+
+      def children_pages(key = :date, order_by = :asc)
+        #dirs  = []
+        #pages = []
+        #current_resource.children.each do |page|
+        #  if !exclude_path?(page.path)
+        #    if page.data.date
+        #      pages.push(page)
+        #    else
+        #      dirs.push(page)
+        #    end
+        #  end
+        #end
+
+        ## Sorting pages
+        #if order_by == :desc
+        #  pages = pages.sort {|a, b|
+        #    b.data[key] <=> a.date[key]
+        #  }
+        #else
+        #  pages = pages.sort {|a, b|
+        #    a.data[key] <=> b.data[key]
+        #  }
+        #end
+
+        ## Sorting dirs
+        #dirs = dirs.sort {|a, b|
+        #  a.path <=> b.path
+        #}
+
+        #dirs | pages
+        []
+      end
+
+      def exclude_path?(path)
+        #default = [config.images_dir, config.js_dir, config.css_dir,
+        #  config.layouts_dir, config.templates_dir]
+        #exclude = config.exclude_path || []
+
+        #dirs = default | exclude
+        #regex = Regexp.new("^(#{dirs.join("|")})")
+        #regex =~ path
+      end
+
+      def page_name(path)
+        path.gsub(/(\/index)?\.html$/, "")
+      end
+
+      def page_url(path)
+        File.join("/", path.gsub(/index\.html$/, ""))
+      end
     end
   end
 end
