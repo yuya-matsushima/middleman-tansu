@@ -13,6 +13,7 @@ module Middleman
 
       def initialize(app, options_hash = {}, &block)
         super
+        app.config.tansu_options = {:exclude_path => options[:exclude_path]}
       end
 
       def after_configuration

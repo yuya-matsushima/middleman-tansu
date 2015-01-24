@@ -42,4 +42,5 @@ Feature: Helpers
       </ul>
       """
     When I run `middleman build --verbose`
+    Then the output should contain "aaaaaaa"
     Then the exit status should be 0

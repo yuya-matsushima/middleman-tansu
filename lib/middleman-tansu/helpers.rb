@@ -30,6 +30,7 @@ module Middleman
       end
 
       def children_pages(key = :date, order_by = :asc)
+        p tansu
         #dirs  = []
         #pages = []
         #current_resource.children.each do |page|
