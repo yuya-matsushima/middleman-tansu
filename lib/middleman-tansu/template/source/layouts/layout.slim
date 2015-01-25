@@ -1,0 +1,54 @@
+doctype html
+html
+  head
+    meta charset="utf-8"
+
+    /! Always force latest IE rendering engine or request Chrome Frame
+    meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible"
+
+    meta name="viewport" content="width=device-width,user-scalable=no,maximum-scale=1"
+
+    title
+      - if /^index.html$/ =~ current_resource.path
+        = config.site_title
+      - elsif data.page.title
+        = "#{data.page.title} - #{config.site_title}"
+      - else
+        = "#{current_resource.path.gsub(/index\.html$/, "")} - #{config.site_title}"
+
+    == stylesheet_link_tag "all"
+
+  body class="#{page_classes}"
+    main
+      header
+        nav.breadcrumbs
+          == breadcrumbs
+
+        h1
+          - if /^index.html$/ =~ current_resource.path
+            = config.site_title
+          - elsif data.page.title
+            = data.page.title
+          - else
+            = current_resource.path.gsub(/index\.html$/, "")
+
+      article.markdown-body
+        - if data.page.author || data.page.date
+            div.metadata
+              - if data.page.author
+                dl
+                  dt author
+                  dd
+                    - if data.page.author.instance_of?(Array)
+                      == data.page.author.join(", ")
+                    - else
+                      == data.page.author
+
+              - if data.page.date
+                dl
+                  dt date
+                  dd
+                    == data.page.date
+
+        == yield
+

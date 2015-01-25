@@ -1,0 +1,15 @@
+<h1>Helpers</h1>
+
+
+<h2>path_list helper</h2>
+
+<% paths = path_list(current_resource.path) %>
+<% if paths.length > 0 %>
+<ul>
+    <% paths.each do |path| %>
+      <li><%= "#{path[:name]}:#{path[:path]}" %></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>No Path List</p>
+<% end %>

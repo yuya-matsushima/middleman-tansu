@@ -1,0 +1,82 @@
+@import "pure-min"
+@import "github-markdown"
+
+$blue: #4183c4
+
+.clearfix
+  *zoom: 1
+  &:after
+    content: ""
+    display: table
+    clear: both
+
+main
+  max-width: 900px
+  margin: 0 auto
+
+  & > header
+    padding: .1em .18em
+    h1
+      margin: .16em
+  & > article
+    max-width: 880px
+    padding: 0 10px 5em
+
+    h2.index
+      padding-top: 1.2em
+
+.breadcrumbs
+  ul
+    margin: 0
+    padding: .28em
+    &:after
+      content: ""
+      clear: both
+      display: block
+  li
+    float: left
+    padding-right: .44em
+    .current
+      font-weight: bold
+    &:after
+      content: "/"
+      padding: 0 0 0 .32em
+    &:last-child:after
+      content: ""
+  a
+    color: $blue
+    text-decoration: none
+    &:hover
+      text-decoration: underline
+    &:visited
+      color: $blue
+
+.metadata
+  margin: .2em auto 3.8em
+  dl
+    width: 17em
+    margin: 0 0 .06em
+    &:after
+      @extend .clearfix
+    dt
+      width: 3.5em
+      float: left
+      margin: 0 .28em 0 0
+      font-style: normal
+    dd
+      width: 13em
+      float: right
+      padding: 0 0 0 .1em
+      margin: 0
+
+.highlight
+  .gutter
+    padding: 0
+  .code
+    width: 100%
+  table td
+    padding: 0 !important
+
+.markdown-body pre.highlight
+  background: #f7f7f7
+  border: 1px solid #ddd
