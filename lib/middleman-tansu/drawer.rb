@@ -12,7 +12,7 @@ module Middleman
       def empty
         empty     = []
         @dirs.each do |dir|
-          glob_path = File.join(@config.source, dir, 'index.html*')
+          glob_path = File.join(@config.source, dir, "#{@config.tansu[:default_document].strip}*")
           if Dir.glob(glob_path).length == 0
             empty.push(dir)
           end

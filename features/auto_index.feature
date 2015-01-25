@@ -129,3 +129,27 @@ Feature: Auto index page
     And the file "build/empty_dir/sub_empty_dir/sample.html" should contain "Sample"
     And the file "build/not_empty_dir/index.html" should contain "Not Empty"
     And the file "build/templates/index.html" should contain "Old Template"
+
+  Scenario: Use :default_document option
+    Given a fixture app "drawer-app"
+    And a file named "config.rb" with:
+      """
+      activate :tansu, :default_document => "default.html"
+      """
+    When I run `middleman build`
+    Then the exit status should be 0
+    And the following files should exist:
+      | build/default.html                         |
+      | build/empty_dir/default.html               |
+      | build/empty_dir/sub_empty_dir/default.html |
+      | build/empty_dir/sub_empty_dir/sample.html  |
+      | build/not_empty_dir/index.html             |
+    And the following files should not exist:
+      | build/index.html                           |
+      | build/empty_dir/index.html                 |
+      | build/empty_dir/sub_empty_dir/index.html   |
+    And the file "build/default.html" should contain "Proxy Template"
+    And the file "build/empty_dir/default.html" should contain "Proxy Template"
+    And the file "build/empty_dir/sub_empty_dir/default.html" should contain "Proxy Template"
+    And the file "build/empty_dir/sub_empty_dir/sample.html" should contain "Sample"
+    And the file "build/not_empty_dir/default.html" should contain "Proxy Template"
