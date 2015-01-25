@@ -4,9 +4,12 @@ Feature: Helpers
     Given a fixture app "path-list-app"
     When I run `middleman build --verbose`
     Then the exit status should be 0
-    And the file "build/index.html" should contain "No Path List"
-    And the file "build/page/list/index.html" should contain "<li>page:/page/</li>"
-    And the file "build/page/list/index.html" should contain "<li>list:/page/list/</li>"
+    And the helper result "build/index.html" should contain '<p>No Path List</p>'
+    And the helper result "build/page/list/index.html" should contain:
+      """
+            <li>page:/page/</li>
+            <li>list:/page/list/</li>
+      """
 
   Scenario: `breadcrumbs` helper
     Given a fixture app "breadcrumbs-app"
@@ -18,9 +21,12 @@ Feature: Helpers
     And the helper result "build/index.html" should contain '<li class="root"><a href="/">Top</a></li>'
 
     # /dir/page.html
-    And the helper result "build/dir/page.html" should contain '<li class="root"><a href="/">Top</a></li>'
-    And the helper result "build/dir/page.html" should contain '<li><a href="/dir/">dir</a></li>'
-    And the helper result "build/dir/page.html" should contain '<li class="current">page</li>'
+    And the helper result "build/dir/page.html" should contain:
+      """
+      <li class="root"><a href="/">Top</a></li>
+      <li><a href="/dir/">dir</a></li>
+      <li class="current">page</li>
+      """
 
   Scenario: `breadcrumbs` helper with params
     Given a fixture app "breadcrumbs-params-app"
@@ -43,13 +49,13 @@ Feature: Helpers
       """
     When I run `middleman build --verbose`
     Then the exit status should be 0
-    Then the helper result "build/index.html" should contain:
+    And the helper result "build/index.html" should contain:
       """
           <li><a href="/dir1/">dir1</a></li>
           <li><a href="/dir2/">dir2</a></li>
           <li><a href="/page1.html">Page1 Title</a></li>
       """
-    Then the helper result "build/dir1/index.html" should contain:
+    And the helper result "build/dir1/index.html" should contain:
       """
           <li><a href="/dir1/sub_dir1/">dir1/sub_dir1</a></li>
           <li><a href="/dir1/sub_dir2/">dir1/sub_dir2</a></li>
@@ -71,13 +77,13 @@ Feature: Helpers
       """
     When I run `middleman build --verbose`
     Then the exit status should be 0
-    Then the helper result "build/index.html" should contain:
+    And the helper result "build/index.html" should contain:
       """
           <li><a href="/dir2/">dir2</a></li>
           <li><a href="/dir1/">dir1</a></li>
           <li><a href="/page1.html">Page1 Title</a></li>
       """
-    Then the helper result "build/dir1/index.html" should contain:
+    And the helper result "build/dir1/index.html" should contain:
       """
           <li><a href="/dir1/sub_dir2/">dir1/sub_dir2</a></li>
           <li><a href="/dir1/sub_dir1/">dir1/sub_dir1</a></li>
