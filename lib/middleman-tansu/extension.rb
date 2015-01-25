@@ -7,7 +7,7 @@ module Middleman
       option :exclude_path, %w(sitemap.xml), "Path list that you don't want to see"
       option :templates_dir, "templates", "Path of template directory's path in source direcotry"
       option :index_template_name, "index.html", "Name of index template"
-      option :default_document, "index.html", "Name of default document. when you use IIS, set 'default.hrml'"
+      option :default_document, "index.html", "Name of default document. When you use IIS, set 'default.html'"
 
       # Helpers for use within templates and layouts.
       self.defined_helpers = [ ::Middleman::Tansu::Helpers ]
