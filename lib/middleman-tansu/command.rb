@@ -101,7 +101,7 @@ module Middleman
           frontmatter = {}
           str.split(",").each do |row|
             if /.+:.+/ =~ row
-              ary, label, data = row.split(/(.+?):(.+)/)
+              ary, label, data = row.split(/(.+?):(.+)$/)
               frontmatter[label] = data
             else
               frontmatter[row] = ""
