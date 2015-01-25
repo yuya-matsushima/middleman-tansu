@@ -28,6 +28,8 @@ module Middleman
         empty_directory File.join(location, 'source', 'templates')
         empty_directory File.join(location, 'source', 'layouts')
 
+        copy_file 'source/sample.html.md', File.join(location, 'source/sample.html.md')
+
         copy_file 'source/layouts/layout.slim', File.join(location, 'source/layouts/layout.slim')
 
         copy_file 'source/stylesheets/all.css.sass', File.join(location, 'source', options[:css_dir], 'all.css.sass')

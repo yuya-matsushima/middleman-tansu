@@ -8,6 +8,7 @@ Feature: Template CLI
       | Gemfile                                |
       | .gitignore                             |
       | config.rb                              |
+      | source/sample.html.md                  |
       | source/layouts/layout.slim             |
       | source/stylesheets/all.css.sass        |
       | source/stylesheets/github-markdown.css |
@@ -20,5 +21,7 @@ Feature: Template CLI
     Then the exit status should be 0
     And the following files should exist:
       | build/index.html                       |
+      | build/sample.html                      |
       | build/stylesheets/all.css              |
+    And the file "build/index.html" should contain "middleman-tansu の簡単な紹介"
 
