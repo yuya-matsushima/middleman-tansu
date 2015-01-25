@@ -77,12 +77,18 @@ module Middleman
         dirs = default | config.tansu[:exclude_path]
       end
 
-      def page_name(path)
-        path.gsub(/(\/index)?\.html$/, "")
+      def page_name(page)
+        if page.data.title
+          paths = page.path.split("/")
+          paths.pop
+          File.join(paths, page.data.title).gsub(/^\//, "")
+        else
+          page.path.gsub(/(\/index)?\.html$/, "")
+        end
       end
 
-      def page_url(path)
-        File.join("/", path.gsub(/index\.html$/, ""))
+      def page_url(page)
+        File.join("/", page.path.gsub(/index\.html$/, ""))
       end
     end
   end

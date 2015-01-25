@@ -37,7 +37,7 @@ Feature: Helpers
       """
       <ul>
         <% children_pages.each do |page| %>
-          <li><%= link_to(page_name(page.path), page_url(page.path)) %></li>
+          <li><%= link_to(page_name(page), page_url(page)) %></li>
         <% end %>
       </ul>
       """
@@ -47,13 +47,14 @@ Feature: Helpers
       """
           <li><a href="/dir1/">dir1</a></li>
           <li><a href="/dir2/">dir2</a></li>
-          <li><a href="/page1.html">page1</a></li>
+          <li><a href="/page1.html">Page1 Title</a></li>
       """
     Then the helper result "build/dir1/index.html" should contain:
       """
           <li><a href="/dir1/sub_dir1/">dir1/sub_dir1</a></li>
           <li><a href="/dir1/sub_dir2/">dir1/sub_dir2</a></li>
-          <li><a href="/dir1/page1.html">dir1/page1</a></li>
-          <li><a href="/dir1/page2.html">dir1/page2</a></li>
-          <li><a href="/dir1/page3.html">dir1/page3</a></li>
+          <li><a href="/dir1/page1.html">dir1/Page1 Title</a></li>
+          <li><a href="/dir1/page2.html">dir1/Page2 Title</a></li>
+          <li><a href="/dir1/page3.html">dir1/Page3 Title</a></li>
+          <li><a href="/dir1/no-title-page.html">dir1/no-title-page</a></li>
       """
