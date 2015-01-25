@@ -42,21 +42,22 @@ module Middleman
           end
         end
 
-        # Sorting pages
+        # Sorting pages and dirs
         if order_by == :desc
           pages = pages.sort {|a, b|
-            b.data[key] <=> a.date[key]
+            b.data[key] <=> a.data[key]
+          }
+          dirs = dirs.sort {|a, b|
+            b.path <=> a.path
           }
         else
           pages = pages.sort {|a, b|
             a.data[key] <=> b.data[key]
           }
+          dirs = dirs.sort {|a, b|
+            a.path <=> b.path
+          }
         end
-
-        # Sorting dirs
-        dirs = dirs.sort {|a, b|
-          a.path <=> b.path
-        }
 
         dirs | pages
       end
