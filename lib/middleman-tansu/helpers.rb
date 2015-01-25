@@ -25,52 +25,56 @@ module Middleman
             li.push("<li>#{link_to(path[:name], path[:path])}</li>")
           end
         end
-
         "<ul class=\"#{klass}\">\n#{li.join("\n")}\n</ul>"
       end
 
       def children_pages(key = :date, order_by = :asc)
-        p tansu
-        #dirs  = []
-        #pages = []
-        #current_resource.children.each do |page|
-        #  if !exclude_path?(page.path)
-        #    if page.data.date
-        #      pages.push(page)
-        #    else
-        #      dirs.push(page)
-        #    end
-        #  end
-        #end
+        dirs  = []
+        pages = []
 
-        ## Sorting pages
-        #if order_by == :desc
-        #  pages = pages.sort {|a, b|
-        #    b.data[key] <=> a.date[key]
-        #  }
-        #else
-        #  pages = pages.sort {|a, b|
-        #    a.data[key] <=> b.data[key]
-        #  }
-        #end
+        current_resource.children.each do |page|
+          if !exclude?(page.path)
+            if /index\.html$/ =~ page.path
+              dirs.push(page)
+            else
+              pages.push(page)
+            end
+          end
+        end
 
-        ## Sorting dirs
-        #dirs = dirs.sort {|a, b|
-        #  a.path <=> b.path
-        #}
+        # Sorting pages
+        if order_by == :desc
+          pages = pages.sort {|a, b|
+            b.data[key] <=> a.date[key]
+          }
+        else
+          pages = pages.sort {|a, b|
+            a.data[key] <=> b.data[key]
+          }
+        end
 
-        #dirs | pages
-        []
+        # Sorting dirs
+        dirs = dirs.sort {|a, b|
+          a.path <=> b.path
+        }
+
+        dirs | pages
       end
 
-      def exclude_path?(path)
-        #default = [config.images_dir, config.js_dir, config.css_dir,
-        #  config.layouts_dir, config.templates_dir]
-        #exclude = config.exclude_path || []
+      def exclude?(path)
+        regex = Regexp.new("^(#{exclude(path).join("|")})")
+        regex =~ path
+      end
 
-        #dirs = default | exclude
-        #regex = Regexp.new("^(#{dirs.join("|")})")
-        #regex =~ path
+      def exclude(path)
+        default = [
+          config.images_dir,
+          config.js_dir,
+          config.css_dir,
+          config.layouts_dir,
+          config.tansu[:templates_dir]
+        ]
+        dirs = default | config.tansu[:exclude_path]
       end
 
       def page_name(path)

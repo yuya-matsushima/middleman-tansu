@@ -13,7 +13,10 @@ module Middleman
 
       def initialize(app, options_hash = {}, &block)
         super
-        app.config.tansu_options = {:exclude_path => options[:exclude_path]}
+        app.config.tansu = {
+          :exclude_path  => options[:exclude_path],
+          :templates_dir => options[:templates_dir]
+        }
       end
 
       def after_configuration

@@ -42,5 +42,18 @@ Feature: Helpers
       </ul>
       """
     When I run `middleman build --verbose`
-    Then the output should contain "aaaaaaa"
     Then the exit status should be 0
+    Then the helper result "build/index.html" should contain:
+      """
+          <li><a href="/dir1/">dir1</a></li>
+          <li><a href="/dir2/">dir2</a></li>
+          <li><a href="/page1.html">page1</a></li>
+      """
+    Then the helper result "build/dir1/index.html" should contain:
+      """
+          <li><a href="/dir1/sub_dir1/">dir1/sub_dir1</a></li>
+          <li><a href="/dir1/sub_dir2/">dir1/sub_dir2</a></li>
+          <li><a href="/dir1/page1.html">dir1/page1</a></li>
+          <li><a href="/dir1/page2.html">dir1/page2</a></li>
+          <li><a href="/dir1/page3.html">dir1/page3</a></li>
+      """
