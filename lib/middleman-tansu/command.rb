@@ -40,12 +40,16 @@ module Middleman
       method_option "author",
         aliases: "-a",
         desc: "The author name to create the Tansu page (default: ENV['USER'])"
+      method_option "frontmatter",
+        desc: "Additions of Frontmatter. ex: \"category: sample, tags: frontmatter\"",
+        default: ""
       def tansu(path)
         paths  = path.split("/")
         title  = paths.pop
         ext    = options[:file]
         date   = options[:date] ? Time.zone.parse(options[:date]) : Time.zone.now
         author = options[:author] || ENV["USER"]
+        add_frontmatter = options[:frontmatter]
 
         if Regexp.new(".html.#{ext}$") !~ title
           filename = "#{title}.html.#{ext}"
@@ -64,22 +68,46 @@ module Middleman
         end
 
         File.open(file, 'w') do |f|
-          f.puts frontmatter(title, author, date)
+          f.puts frontmatter(title, author, date, add_frontmatter)
         end
         puts "create new tansu page: #{file}"
       end
 
       no_tasks do
-        def frontmatter(title, author, date)
-          rows = []
-          rows << "---"
-          rows << "title: #{title}"
-          rows << "author: #{author}"
-          rows << "date: #{date}"
-          rows << "---"
+        def frontmatter(title, author, date, frontmatter)
+          data = {
+            :title  => title,
+            :author => author,
+            :date   => date
+          }
+
+          if !frontmatter.empty?
+            data = data.merge(add_frontmatter(frontmatter))
+          end
+
+          rows = ["---"]
+          data.each do |label, data|
+            rows << "#{label}: #{data.to_s.strip}"
+          end
+          rows << ["---"]
           rows << "\n\n"
 
           rows.join("\n")
+        end
+
+        def add_frontmatter(str)
+          {} if str.empty?
+
+          frontmatter = {}
+          str.split(",").each do |row|
+            if /.+:.+/ =~ row
+              ary, label, data = row.split(/(.+?):(.+)/)
+              frontmatter[label] = data
+            else
+              frontmatter[row] = ""
+            end
+          end
+          frontmatter
         end
 
         def destination_dir(dir)

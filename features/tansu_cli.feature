@@ -46,3 +46,35 @@ Feature: Tansu Command
     And the file "source/foo.html.md" should contain "title: foo"
     And the file "source/foo.html.md" should contain "author: John Doe"
     And the file "source/foo.html.md" should contain "date:"
+
+  Scenario: `middleman tansu --frontmatter "category: sample"` create file with category frontmatter
+    Given a fixture app "empty-app"
+    When I run `middleman tansu --frontmatter "category: sample" foo`
+    Then the exit status should be 0
+    And a file named "source/foo.html.md" should exist
+    And the file "source/foo.html.md" should contain "title: foo"
+    And the file "source/foo.html.md" should contain "author:"
+    And the file "source/foo.html.md" should contain "date:"
+    And the file "source/foo.html.md" should contain "category: sample"
+
+  Scenario: `middleman tansu --frontmatter "category: sample, tags: markdown"` create file with category frontmatter
+    Given a fixture app "empty-app"
+    When I run `middleman tansu --frontmatter "category: sample, tags: markdown" foo`
+    Then the exit status should be 0
+    And a file named "source/foo.html.md" should exist
+    And the file "source/foo.html.md" should contain "title: foo"
+    And the file "source/foo.html.md" should contain "author:"
+    And the file "source/foo.html.md" should contain "date:"
+    And the file "source/foo.html.md" should contain "category: sample"
+    And the file "source/foo.html.md" should contain "tags: markdown"
+
+  Scenario: `middleman tansu --frontmatter "category:sample,tags:markdown"` create file with category frontmatter
+    Given a fixture app "empty-app"
+    When I run `middleman tansu --frontmatter "category: sample, tags: markdown" foo`
+    Then the exit status should be 0
+    And a file named "source/foo.html.md" should exist
+    And the file "source/foo.html.md" should contain "title: foo"
+    And the file "source/foo.html.md" should contain "author:"
+    And the file "source/foo.html.md" should contain "date:"
+    And the file "source/foo.html.md" should contain "category: sample"
+    And the file "source/foo.html.md" should contain "tags: markdown"
