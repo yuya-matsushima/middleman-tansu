@@ -24,4 +24,8 @@ Feature: Template CLI
       | build/sample.html                      |
       | build/stylesheets/all.css              |
     And the file "build/index.html" should contain "middleman-tansu の簡単な紹介"
+    And the helper result "build/sample.html" should contain:
+      """
+      <li class="current">middleman-tansu の簡単な紹介</li>
+      """
 
