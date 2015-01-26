@@ -3,6 +3,7 @@ require "builder"
 
 # Tansu Settings
 set :site_title, "Middleman-Tansu"
+set :sitemap_url, "http://localhost:4567"
 activate :tansu
 
 # Markdown Settings

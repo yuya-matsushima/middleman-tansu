@@ -4,7 +4,7 @@ author: yterajima
 date: 2014-01-25 23:32:00 +0900
 ---
 
-[middleman-tansu](https://github.com/yterajima/middleman-tansu) は Markdown ファイルをディレクトリを使って分類管理するために開発されているテンプレートです。例えるなら, 静的な wiki のようなものを目指しています。バラバラに管理される Markdown を tansu (箪笥) に入れてまとめて管理できるように工夫されています。
+[middleman-tansu](https://github.com/yterajima/middleman-tansu) は Markdown ファイルをディレクトリを使って分類管理するために開発されているテンプレートです。例えるなら静的な wiki のようなものを目指しています。バラバラに管理される Markdown を tansu (箪笥) に入れてまとめて管理できるように工夫されています。
 
 ## middleman-tansu が提供する機能
 
@@ -59,17 +59,18 @@ __NOTICE__: `index.html` として出力されるファイルが存在する場�
 - children_pages
     - 現在のページがあるディレクトリ中のファイル/ディレクトリ一覧
     - この Helper は `index.html` になるファイルの中で使われます
-
+- title
+    - title タグ中に表示すべき文字列を返す
+- heading
+    - h1 タグ中に表示すべき文字列を返す
 
 ### 4.プロジェクトテンプレート
 
 middleman-tansu は拡張機能と同時にプロジェクトテンプレートを提供しています。次のコマンドで初期化できます。
 
 ```sh
-$ middleman tansu PROJECT_NAME --template tansu
+$ middleman init PROJECT_NAME --template tansu
 ```
 
 このまま `$ middleman server` すると基本的な機能が用意されたテンプレートを使うことができます。このテンプレートは github-flavored-markdown を使用することができます。もちろんコードの構文ハイライトも対応します。
-
-
 
