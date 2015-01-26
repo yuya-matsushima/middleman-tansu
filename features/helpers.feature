@@ -52,7 +52,7 @@ Feature: Helpers
       <li class="root"><a href="/">Root Page</a></li>
       <li><a href="/dir/">Dir/Index Title</a></li>
       <li><a href="/dir/sub_dir/">sub_dir</a></li>
-      <li class="current">Dir/Page Title</li>
+      <li class="current">Dir&#x2F;Page Title</li>
       """
 
   Scenario: `children_pages` helper

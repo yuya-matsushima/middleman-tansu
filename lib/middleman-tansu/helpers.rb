@@ -22,7 +22,7 @@ module Middleman
         paths.each do |path|
           name = page_title(path[:path]) || path[:name]
           if path == paths.last
-            li.push("<li class=\"current\">#{name}</li>")
+            li.push("<li class=\"current\">#{h(name)}</li>")
           else
             li.push("<li>#{link_to(name, path[:path])}</li>")
           end
