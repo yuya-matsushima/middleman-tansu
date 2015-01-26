@@ -214,3 +214,63 @@ Feature: Helpers
       """
       <title>dir/sub_dir/page - Middleman-Tansu</title>
       """
+
+  Scenario: `heading` helper
+    Given a fixture app "title-app"
+    When I run `middleman build --verbose`
+    Then the exit status should be 0
+    And the helper result "build/index.html" should contain:
+      """
+      <h1>Middleman-Tansu</h1>
+      """
+    And the helper result "build/dir/index.html" should contain:
+      """
+      <h1>dir/</h1>
+      """
+    And the helper result "build/dir/sub_dir/index.html" should contain:
+      """
+      <h1>dir/sub_dir/</h1>
+      """
+    And the helper result "build/dir/sub_dir/page.html" should contain:
+      """
+      <h1>Page Title</h1>
+      """
+
+  Scenario: `heading` helper with app.config.site_title option
+    Given a fixture app "title-app"
+    And a file named "config.rb" with:
+      """
+      set :site_title, "TANSU"
+      activate :tansu
+      """
+    When I run `middleman build --verbose`
+    Then the exit status should be 0
+    And the helper result "build/index.html" should contain:
+      """
+      <h1>TANSU</h1>
+      """
+    And the helper result "build/dir/index.html" should contain:
+      """
+      <h1>dir/</h1>
+      """
+    And the helper result "build/dir/sub_dir/page.html" should contain:
+      """
+      <h1>Page Title</h1>
+      """
+
+  Scenario: `heading` helper
+    Given a fixture app "title-has-title-app"
+    When I run `middleman build --verbose`
+    Then the exit status should be 0
+    And the helper result "build/index.html" should contain:
+      """
+      <h1>Root Page</h1>
+      """
+    And the helper result "build/dir/index.html" should contain:
+      """
+      <h1>Dir/Index Title</h1>
+      """
+    And the helper result "build/dir/sub_dir/page.html" should contain:
+      """
+      <h1>dir/sub_dir/page</h1>
+      """

@@ -37,16 +37,34 @@ module Middleman
         sitemap.find_resource_by_path(path).data.title
       end
 
+      def page_title_or_path(path)
+        page_title(path) || path.gsub(/(index)?\.html$/, "")
+      end
+
       def title(splitter = ' - ')
-        base_title = config[:site_title] || "Middleman-Tansu"
-        path       = current_resource.path
-        page_title = page_title(path) || path.gsub(/(index)?\.html$/, "")
+        base_title = base_title()
+        page_title = page_title_or_path(current_resource.path)
 
         if !page_title.empty?
           "#{page_title}#{splitter}#{base_title}"
         else
           base_title
         end
+      end
+
+      def heading
+        base_title = base_title()
+        page_title = page_title_or_path(current_resource.path)
+
+        if !page_title.empty?
+          page_title
+        else
+          base_title
+        end
+      end
+
+      def base_title
+        config[:site_title] || "Middleman-Tansu"
       end
 
       def children_pages(key = :date, order_by = :asc)
