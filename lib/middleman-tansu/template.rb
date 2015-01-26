@@ -29,13 +29,11 @@ module Middleman
         empty_directory File.join(location, 'source', 'layouts')
 
         copy_file 'source/sample.html.md', File.join(location, 'source/sample.html.md')
-
+        copy_file 'source/sitemap.xml.builder', File.join(location, 'source/sitemap.xml.builder')
         copy_file 'source/layouts/layout.slim', File.join(location, 'source/layouts/layout.slim')
-
+        copy_file 'source/templates/index.html.slim', File.join(location, 'source/templates/index.html.slim')
         copy_file 'source/stylesheets/all.css.sass', File.join(location, 'source', options[:css_dir], 'all.css.sass')
         copy_file 'source/stylesheets/github-markdown.css', File.join(location, 'source', options[:css_dir], 'github-markdown.css')
-
-        copy_file 'source/templates/index.html.slim', File.join(location, 'source', 'templates', 'index.html.slim')
       end
     end
   end
