@@ -1,5 +1,8 @@
 # Middleman::Tansu
 
+[![Gem Version](https://badge.fury.io/rb/middleman-tansu.svg)](http://badge.fury.io/rb/middleman-tansu)
+[![Build Status](https://travis-ci.org/yterajima/middleman-tansu.svg?branch=develop)](https://travis-ci.org/yterajima/middleman-tansu)
+
 TODO: Write a gem description
 
 ## Installation
