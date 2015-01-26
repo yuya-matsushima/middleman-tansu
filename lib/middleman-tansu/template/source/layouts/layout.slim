@@ -9,12 +9,7 @@ html
     meta name="viewport" content="width=device-width,user-scalable=no,maximum-scale=1"
 
     title
-      - if /^index.html$/ =~ current_resource.path
-        = config.site_title
-      - elsif data.page.title
-        = "#{data.page.title} - #{config.site_title}"
-      - else
-        = "#{current_resource.path.gsub(/index\.html$/, "")} - #{config.site_title}"
+      = title
 
     == stylesheet_link_tag "all"
 
@@ -25,30 +20,25 @@ html
           == breadcrumbs
 
         h1
-          - if /^index.html$/ =~ current_resource.path
-            = config.site_title
-          - elsif data.page.title
-            = data.page.title
-          - else
-            = current_resource.path.gsub(/index\.html$/, "")
+          = heading
 
       article.markdown-body
-        - if data.page.author || data.page.date
-            div.metadata
-              - if data.page.author
-                dl
-                  dt author
-                  dd
-                    - if data.page.author.instance_of?(Array)
-                      == data.page.author.join(", ")
-                    - else
-                      == data.page.author
+        - if !index?
+          div.metadata
+            - if data.page.author
+              dl
+                dt author
+                dd
+                  - if data.page.author.instance_of?(Array)
+                    == data.page.author.join(", ")
+                  - else
+                    == data.page.author
 
-              - if data.page.date
-                dl
-                  dt date
-                  dd
-                    == data.page.date
+            - if data.page.date
+              dl
+                dt date
+                dd
+                  == data.page.date
 
         == yield
 
