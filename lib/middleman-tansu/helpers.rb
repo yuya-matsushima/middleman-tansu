@@ -67,6 +67,11 @@ module Middleman
         config[:site_title] || "Middleman-Tansu"
       end
 
+      def index?
+        regex = Regexp.new("#{config.tansu[:default_document]}$")
+        regex =~ current_resource.path || "/" == current_resource.path
+      end
+
       def children_pages(key = :date, order_by = :asc)
         dirs  = []
         pages = []

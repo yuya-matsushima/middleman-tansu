@@ -274,3 +274,19 @@ Feature: Helpers
       """
       <h1>dir/sub_dir/page</h1>
       """
+  Scenario: `index?` helper
+    Given a fixture app "index-app"
+    When I run `middleman build --verbose`
+    Then the exit status should be 0
+    And the helper result "build/index.html" should contain:
+      """
+      <h2>Index</h2>
+      """
+    And the helper result "build/dir/index.html" should contain:
+      """
+      <h2>Index</h2>
+      """
+    And the helper result "build/dir/page.html" should contain:
+      """
+      <h2>Page</h2>
+      """

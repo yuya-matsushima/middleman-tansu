@@ -1,0 +1,17 @@
+<html>
+  <head>
+    <meta charsrt="utf-8">
+    <title>title</title>
+  </head>
+  <body>
+    <h1>Helpers</h1>
+
+    <% if index? %>
+      <h2>Index</h2>
+    <% else %>
+      <h2>Page</h2>
+    <% end %>
+
+    <%= yield %>
+  </body>
+</html>
