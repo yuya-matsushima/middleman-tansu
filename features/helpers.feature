@@ -37,6 +37,24 @@ Feature: Helpers
     And the helper result "build/index.html" should contain '<ul class="bread-links">'
     And the helper result "build/index.html" should contain '<li class="root"><a href="/">Home</a></li>'
 
+  Scenario: `breadcrumbs` helper with index page that has title Frontmatter
+    Given a fixture app "breadcrumbs-has-title-app"
+    When I run `middleman build --verbose`
+    Then the exit status should be 0
+
+    # /index.html
+    And the helper result "build/index.html" should contain '<ul class="breadcrumbs">'
+    And the helper result "build/index.html" should contain '<li class="root"><a href="/">Root Page</a></li>'
+
+    # /dir/page.html
+    And the helper result "build/dir/sub_dir/page.html" should contain:
+      """
+      <li class="root"><a href="/">Root Page</a></li>
+      <li><a href="/dir/">Dir/Index Title</a></li>
+      <li><a href="/dir/sub_dir/">sub_dir</a></li>
+      <li class="current">Dir/Page Title</li>
+      """
+
   Scenario: `children_pages` helper
     Given a fixture app "children-pages-app"
     And a file named "source/templates/index.html.erb" with:
@@ -98,7 +116,7 @@ Feature: Helpers
     And a file named "source/templates/index.html.erb" with:
       """
       <ul>
-      <% children_pages(:category).each do |page| %>
+        <% children_pages(:category).each do |page| %>
           <li><%= link_to(page_name(page), page_url(page)) %></li>
         <% end %>
       </ul>
@@ -120,7 +138,7 @@ Feature: Helpers
     And a file named "source/templates/index.html.erb" with:
       """
       <ul>
-      <% children_pages(:category, :desc).each do |page| %>
+        <% children_pages(:category, :desc).each do |page| %>
           <li><%= link_to(page_name(page), page_url(page)) %></li>
         <% end %>
       </ul>
