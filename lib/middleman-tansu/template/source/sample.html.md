@@ -74,5 +74,3 @@ $ middleman init PROJECT_NAME --template tansu
 
 このまま `$ middleman server` すると基本的な機能が用意されたテンプレートを使うことができます。このテンプレートは github-flavored-markdown を使用することができます。もちろんコードの構文ハイライトも対応します。
 
-
-
