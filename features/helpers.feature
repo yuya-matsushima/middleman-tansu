@@ -154,3 +154,63 @@ Feature: Helpers
           <li><a href="/dir1/page2.html">dir1/Page2 Title</a></li>
           <li><a href="/dir1/page1.html">dir1/Page1 Title</a></li>
       """
+
+  Scenario: `title` helper
+    Given a fixture app "title-app"
+    When I run `middleman build --verbose`
+    Then the exit status should be 0
+    And the helper result "build/index.html" should contain:
+      """
+      <title>Middleman-Tansu</title>
+      """
+    And the helper result "build/dir/index.html" should contain:
+      """
+      <title>dir/ - Middleman-Tansu</title>
+      """
+    And the helper result "build/dir/sub_dir/index.html" should contain:
+      """
+      <title>dir/sub_dir/ - Middleman-Tansu</title>
+      """
+    And the helper result "build/dir/sub_dir/page.html" should contain:
+      """
+      <title>Page Title - Middleman-Tansu</title>
+      """
+
+  Scenario: `title` helper with app.config.site_title option
+    Given a fixture app "title-app"
+    And a file named "config.rb" with:
+      """
+      set :site_title, "TANSU"
+      activate :tansu
+      """
+    When I run `middleman build --verbose`
+    Then the exit status should be 0
+    And the helper result "build/index.html" should contain:
+      """
+      <title>TANSU</title>
+      """
+    And the helper result "build/dir/index.html" should contain:
+      """
+      <title>dir/ - TANSU</title>
+      """
+    And the helper result "build/dir/sub_dir/page.html" should contain:
+      """
+      <title>Page Title - TANSU</title>
+      """
+
+  Scenario: `title` helper
+    Given a fixture app "title-has-title-app"
+    When I run `middleman build --verbose`
+    Then the exit status should be 0
+    And the helper result "build/index.html" should contain:
+      """
+      <title>Root Page - Middleman-Tansu</title>
+      """
+    And the helper result "build/dir/index.html" should contain:
+      """
+      <title>Dir/Index Title - Middleman-Tansu</title>
+      """
+    And the helper result "build/dir/sub_dir/page.html" should contain:
+      """
+      <title>dir/sub_dir/page - Middleman-Tansu</title>
+      """
