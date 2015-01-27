@@ -6,11 +6,11 @@ module Middleman
         @options      = options
         @dirs         = ["/"]
         @exclude_path = exclude(exclude_path)
-        search_directory(@config.source)
       end
 
       def empty
-        empty     = []
+        search_directory(@config.source)
+        empty = []
         @dirs.each do |dir|
           glob_path = File.join(@config.source, dir, "#{@config.tansu[:default_document].strip}*")
           if Dir.glob(glob_path).length == 0
