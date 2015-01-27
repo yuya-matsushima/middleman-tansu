@@ -8,6 +8,7 @@ module Middleman
     # - '-f': set file extension, default "md"
     # - '-d': set date(yyyy-mm-dd). Default is now. This is used in Frontmatter.
     # - '-a': set author name. Default "ENV['USER']".
+    # - '--frontmatter': add data to Frontmatter
     class Tansu < Thor
       include Thor::Actions
 
@@ -17,7 +18,7 @@ module Middleman
 
       def initialize(*args)
         super
-        Time.zone = Time.zone || "UTC"
+        Time.zone = ENV['TZ'] || "UTC"
       end
 
       def self.source_root
