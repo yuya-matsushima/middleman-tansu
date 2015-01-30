@@ -83,6 +83,42 @@ Feature: Helpers
           <li><a href="/dir1/no-title-page.html">dir1/no-title-page</a></li>
       """
 
+  Scenario: `children_pages` helper with difference timezone
+    Given a fixture app "children-pages-app"
+    And a file named "source/templates/index.html.erb" with:
+      """
+      <ul>
+        <% children_pages.each do |page| %>
+          <li><%= link_to(page_name(page), page_url(page)) %></li>
+        <% end %>
+      </ul>
+      """
+    And a file named "source/dir1/page2.html.md" with:
+      """
+      ---
+      title: Page2 Title
+      author: John Doe
+      date: 2015-01-10 21:00:00 +1100
+      ---
+      """
+    When I run `middleman build --verbose`
+    Then the exit status should be 0
+    And the helper result "build/index.html" should contain:
+      """
+          <li><a href="/dir1/">dir1</a></li>
+          <li><a href="/dir2/">dir2</a></li>
+          <li><a href="/page1.html">Page1 Title</a></li>
+      """
+    And the helper result "build/dir1/index.html" should contain:
+      """
+          <li><a href="/dir1/sub_dir1/">dir1/sub_dir1</a></li>
+          <li><a href="/dir1/sub_dir2/">dir1/sub_dir2</a></li>
+          <li><a href="/dir1/page2.html">dir1/Page2 Title</a></li>
+          <li><a href="/dir1/page1.html">dir1/Page1 Title</a></li>
+          <li><a href="/dir1/page3.html">dir1/Page3 Title</a></li>
+          <li><a href="/dir1/no-title-page.html">dir1/no-title-page</a></li>
+      """
+
   Scenario: `children_pages` helper with "order_by = :desc" option
     Given a fixture app "children-pages-app"
     And a file named "source/templates/index.html.erb" with:
