@@ -3,11 +3,9 @@
 [![Gem Version](https://badge.fury.io/rb/middleman-tansu.svg)](http://badge.fury.io/rb/middleman-tansu)
 [![Build Status](https://travis-ci.org/yterajima/middleman-tansu.svg?branch=develop)](https://travis-ci.org/yterajima/middleman-tansu)
 
-TODO: Write a gem description
+A template of Middleman to manage Markdown files efficiently. 
 
 ## Installation
-
-Add this line to your application's Gemfile:
 
 ```ruby
 gem 'middleman-tansu'
@@ -23,7 +21,15 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+```sh
+$ middleman init PROJECT --template tansu
+```
+
+This template(& extension) has `tansu` command. You can create Markdown file.
+
+```sh
+$ bundle exec middleman tansu path/to/filename
+```
 
 ## Contributing
 

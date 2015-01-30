@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = Middleman::Tansu::VERSION
   spec.authors       = ["Yuya Terajima"]
   spec.email         = ["terra@e2esound.com"]
-  spec.summary       = %q{A Template of Middleman.}
-  spec.description   = %q{A Template of Middleman.}
+  spec.summary       = %q{A template of Middleman to manage Markdown files efficiently.}
+  spec.description   = %q{A template of Middleman to manage Markdown files efficiently.}
   spec.homepage      = "https://github.com/yterajima/middleman-tansu"
   spec.license       = "MIT"
 
