@@ -20,8 +20,9 @@ Gem::Specification.new do |spec|
 
   spec.required_ruby_version = '>= 1.9.3'
 
-  spec.add_runtime_dependency "middleman", "~>3.3"
+  spec.add_runtime_dependency "middleman", "~> 3.3"
   spec.add_runtime_dependency "middleman-syntax", "~> 2.0"
+  spec.add_runtime_dependency "middleman-gemoji", ">= 0.0.2"
   spec.add_runtime_dependency "slim", "~> 3.0"
   spec.add_runtime_dependency "redcarpet", "~> 3.2"
   spec.add_runtime_dependency "builder", "~> 3.2"
