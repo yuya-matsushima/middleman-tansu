@@ -8,6 +8,7 @@ module Middleman
     # - '-f': set file extension, default "md"
     # - '-d': set date(yyyy-mm-dd). Default is now. This is used in Frontmatter.
     # - '-a': set author name. Default "ENV['USER']".
+    # - '-z': set timezone.
     # - '--frontmatter': add data to Frontmatter
     class Tansu < Thor
       include Thor::Actions
@@ -33,23 +34,28 @@ module Middleman
       desc "tansu path/to/TITLE", "Create a new Tansu page"
       method_option "file",
         aliases: "-f",
-        desc: "The file extension to create the Tansu page (default: md)",
+        desc: "The file extension of file (default: md)",
         default: "md"
+      method_option "timezone",
+        aliases: "-z",
+        desc: "The timezone of Frontmatter (default: ENV['TZ'])"
       method_option "date",
         aliases: "-d",
-        desc: "The date to create the Tansu page with (default: Time.zone.now)"
+        desc: "The date of Frontmatter (default: Time.zone.now)",
+        default: nil
       method_option "author",
         aliases: "-a",
-        desc: "The author name to create the Tansu page (default: ENV['USER'])"
+        desc: "The author name of Frontmatter (default: ENV['USER'])"
       method_option "frontmatter",
         desc: "Additions of Frontmatter. ex: \"category: sample, tags: frontmatter\"",
         default: ""
       def tansu(path)
-        paths  = path.split("/")
-        title  = paths.pop
-        ext    = options[:file]
-        date   = options[:date] ? Time.zone.parse(options[:date]) : Time.zone.now
-        author = options[:author] || ENV["USER"]
+        paths     = path.split("/")
+        title     = paths.pop
+        ext       = options[:file]
+        Time.zone = options[:timezone] || ENV['TZ'] || "UTC"
+        date      = options[:date] ? Time.zone.parse(options[:date]) : Time.zone.now
+        author    = options[:author] || ENV["USER"]
         add_frontmatter = options[:frontmatter]
 
         if Regexp.new(".html.#{ext}$") !~ title

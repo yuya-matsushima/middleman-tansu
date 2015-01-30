@@ -80,7 +80,7 @@ Feature: Tansu Command
     And the file "source/foo.html.md" should contain "category: sample"
     And the file "source/foo.html.md" should contain "tags: markdown"
 
-  Scenario: `middleman tansu` create a markdown file with TZ="UTC"
+  Scenario: `middleman tansu` create a markdown
     Given a fixture app "empty-app"
     And I set the timezone to "UTC"
     When I run `middleman tansu foo`
@@ -96,6 +96,18 @@ Feature: Tansu Command
     Given a fixture app "empty-app"
     And I set the timezone to "Tokyo"
     When I run `middleman tansu foo`
+    Then the exit status should be 0
+    And a file named "source/foo.html.md" should exist
+    And the file "source/foo.html.md" should contain "title: foo"
+    And the file "source/foo.html.md" should not contain "title: foo.html.md"
+    And the file "source/foo.html.md" should contain "author:"
+    And the file "source/foo.html.md" should contain "date:"
+    And the file "source/foo.html.md" should contain "+0900"
+
+  Scenario: `middleman tansu` create a markdown file with -z option
+    Given a fixture app "empty-app"
+    And I set the timezone to "UTC"
+    When I run `middleman tansu foo -z Tokyo`
     Then the exit status should be 0
     And a file named "source/foo.html.md" should exist
     And the file "source/foo.html.md" should contain "title: foo"
