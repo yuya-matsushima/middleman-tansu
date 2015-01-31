@@ -2,7 +2,7 @@ require 'middleman-core/templates'
 
 module Middleman
   module Tansu
-
+    # Template class of Middleman
     class Template < Middleman::Templates::Base
       class_option 'css_dir',
         default: 'stylesheets',

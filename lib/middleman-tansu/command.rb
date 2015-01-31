@@ -1,9 +1,10 @@
-require "middleman-core/cli"
-require "active_support/core_ext/time/zones"
+require 'middleman-core/cli'
+require 'active_support/core_ext/time/zones'
 
 module Middleman
   module Cli
-    # This class provides a "tansu" command for the middleman CLI.
+    # This class provides a "tansu" command for middleman CLI.
+    #
     # "tansu" command has some options:
     # - '-f': set file extension, default "md"
     # - '-d': set date(yyyy-mm-dd). Default is now. This is used in Frontmatter.
@@ -19,7 +20,7 @@ module Middleman
 
       def initialize(*args)
         super
-        Time.zone = ENV['TZ'] || "UTC"
+        Time.zone = ENV['TZ'] || 'UTC'
       end
 
       def self.source_root
@@ -31,31 +32,31 @@ module Middleman
         true
       end
 
-      desc "tansu path/to/TITLE", "Create a new Tansu page"
-      method_option "file",
-        aliases: "-f",
-        desc: "The file extension of file (default: md)",
-        default: "md"
-      method_option "timezone",
-        aliases: "-z",
-        desc: "The timezone of Frontmatter (default: ENV['TZ'])"
-      method_option "date",
-        aliases: "-d",
-        desc: "The date of Frontmatter (default: Time.zone.now)",
+      desc 'tansu path/to/TITLE', 'Create a new Tansu page'
+      method_option 'file',
+        aliases: '-f',
+        desc: 'The file extension of file (default: md)',
+        default: 'md'
+      method_option 'timezone',
+        aliases: '-z',
+        desc: 'The timezone of Frontmatter (default: ENV["TZ"])'
+      method_option 'date',
+        aliases: '-d',
+        desc: 'The date of Frontmatter (default: Time.zone.now)',
         default: nil
-      method_option "author",
-        aliases: "-a",
-        desc: "The author name of Frontmatter (default: ENV['USER'])"
-      method_option "frontmatter",
-        desc: "Additions of Frontmatter. ex: \"category: sample, tags: frontmatter\"",
-        default: ""
+      method_option 'author',
+        aliases: '-a',
+        desc: 'The author name of Frontmatter (default: ENV["USER"])'
+      method_option 'frontmatter',
+        desc: 'Additions of Frontmatter ex:"category:sample,tags:frontmatter"',
+        default: ''
       def tansu(path)
-        paths     = path.split("/")
+        paths     = path.split('/')
         title     = paths.pop
         ext       = options[:file]
-        Time.zone = options[:timezone] || ENV['TZ'] || "UTC"
+        Time.zone = options[:timezone] || ENV['TZ'] || 'UTC'
         date      = options[:date] ? Time.zone.parse(options[:date]) : Time.zone.now
-        author    = options[:author] || ENV["USER"]
+        author    = options[:author] || ENV['USER']
         add_frontmatter = options[:frontmatter]
 
         if Regexp.new(".html.#{ext}$") !~ title
@@ -65,11 +66,9 @@ module Middleman
         dir  = destination_dir(paths)
         file = File.join(dir, filename)
 
-        if !Dir.exists?(dir)
-          FileUtils.mkdir_p dir
-        end
+        FileUtils.mkdir_p dir unless Dir.exist?(dir)
 
-        if File.exists?(file)
+        if File.exist?(file)
           puts "#{file} is exist"
           exit
         end
@@ -83,20 +82,20 @@ module Middleman
       no_tasks do
         def frontmatter(title, author, date, frontmatter)
           data = {
-            :title  => title,
-            :author => author,
-            :date   => date
+            title: title,
+            author: author,
+            date: date
           }
 
-          if !frontmatter.empty?
+          unless frontmatter.empty?
             data = data.merge(add_frontmatter(frontmatter))
           end
 
-          rows = ["---"]
-          data.each do |label, data|
-            rows << "#{label}: #{data.to_s.strip}"
+          rows = ['---']
+          data.each do |label, val|
+            rows << "#{label}: #{val.to_s.strip}"
           end
-          rows << ["---"]
+          rows << ['---']
           rows << "\n\n"
 
           rows.join("\n")
@@ -104,14 +103,13 @@ module Middleman
 
         def add_frontmatter(str)
           {} if str.empty?
-
           frontmatter = {}
-          str.split(",").each do |row|
+          str.split(',').each do |row|
             if /.+:.+/ =~ row
-              ary, label, data = row.split(/(.+?):(.+)$/)
+              _, label, data = row.split(/(.+?):(.+)$/)
               frontmatter[label] = data
             else
-              frontmatter[row] = ""
+              frontmatter[row] = ''
             end
           end
           frontmatter
@@ -121,7 +119,7 @@ module Middleman
           app    = Middleman::Application
           source = File.join(app.root, app.config.source)
 
-          if dir == nil || dir == '.'
+          if dir.nil? || dir == '.'
             source
           else
             File.join(source, dir)
