@@ -21,8 +21,21 @@ date: 2014-01-25 23:32:00 +0900
 $ middleman tansu path/to/ページ
 ```
 
-このコマンドによって `source/path/to/ページ.html.md` が作成されます。同時にこのテンプレートに必要な Frontmatter を書き込みます。
+このコマンドによって `source/path/to/ページ.html.md` が作成されます。同時にこのテンプレートに必要な Frontmatter を書き込みます。例えば次のようになります。
 
+```
+---
+title: ページ
+author: yterajima
+date: 2015-01-31 08:11:22 UTC
+---
+```
+
+`author` には使用している PC のユーザ名, `date` のシステム上で設定されているタイムゾーンを使って決定しています。もし任意のユーザ名, 任意のタイムゾーンを利用したい場合コマンド実行時に指定することもできます。
+
+```sh
+$ middleman tansu path/to/ページ -z Tokyo -a yterajima
+```
 
 ### 2.各ディレクトリに `index.html` を用意する機能
 
