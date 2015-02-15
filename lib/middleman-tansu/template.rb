@@ -33,6 +33,7 @@ module Middleman
         copy_file 'source/layouts/layout.slim', File.join(location, 'source/layouts/layout.slim')
         copy_file 'source/templates/index.html.slim', File.join(location, 'source/templates/index.html.slim')
         copy_file 'source/stylesheets/all.css.sass', File.join(location, 'source', options[:css_dir], 'all.css.sass')
+        copy_file 'source/stylesheets/_gemoji.sass', File.join(location, 'source', options[:css_dir], '_gemoji.sass')
         copy_file 'source/stylesheets/pure-min.css', File.join(location, 'source', options[:css_dir], 'pure-min.css')
         copy_file 'source/stylesheets/github-markdown.css', File.join(location, 'source', options[:css_dir], 'github-markdown.css')
       end

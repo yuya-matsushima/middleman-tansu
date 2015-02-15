@@ -12,6 +12,8 @@ Feature: Template CLI
       | source/sitemap.xml.builder             |
       | source/layouts/layout.slim             |
       | source/stylesheets/all.css.sass        |
+      | source/stylesheets/_gemoji.sass        |
+      | source/stylesheets/pure-min.css        |
       | source/stylesheets/github-markdown.css |
       | source/templates/index.html.slim       |
 
@@ -25,6 +27,9 @@ Feature: Template CLI
       | build/sample.html                      |
       | build/sitemap.xml                      |
       | build/stylesheets/all.css              |
+    And the file "build/stylesheets/all.css" should contain "Pure"
+    And the file "build/stylesheets/all.css" should contain ".gemoji"
+    And the file "build/stylesheets/all.css" should contain ".markdown-body"
     And the file "build/index.html" should contain "middleman-tansu の簡単な紹介"
     And the helper result "build/sample.html" should contain:
       """
