@@ -4,8 +4,8 @@ Feature: Tansu Command
     Given a fixture app "empty-app"
     When I run `middleman tansu foo`
     Then the exit status should be 0
-    And a file named "source/foo.html.md" should exist
     And the output should contain "create tansu page: foo.html.md"
+    And a file named "source/foo.html.md" should exist
     And the file "source/foo.html.md" should contain "title: foo"
     And the file "source/foo.html.md" should not contain "title: foo.html.md"
     And the file "source/foo.html.md" should contain "author:"
@@ -117,15 +117,3 @@ Feature: Tansu Command
     And the file "source/foo.html.md" should contain "author:"
     And the file "source/foo.html.md" should contain "date:"
     And the file "source/foo.html.md" should contain "+0900"
-
-  Scenario: `middleman tansu` create a markdown file with -c
-    Given a fixture app "empty-app"
-    And a directory named "source/subdirectory"
-    And I cd to "source/subdirectory"
-    When I run `middleman tansu foo -c`
-    Then the exit status should be 0
-    And the output should contain "create tansu page: foo.html.md"
-    And a file named "foo.html.md" should exist
-    And the file "foo.html.md" should contain "title: foo"
-    And the file "foo.html.md" should contain "author:"
-    And the file "foo.html.md" should contain "date:"

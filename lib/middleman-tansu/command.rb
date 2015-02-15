@@ -47,11 +47,6 @@ module Middleman
       method_option 'author',
         aliases: '-a',
         desc: 'The author name of Frontmatter (default: ENV["USER"])'
-      method_option 'current',
-        type: :boolean,
-        aliases: '-c',
-        default: false,
-        desc: 'Create file from current direcotry'
       method_option 'frontmatter',
         desc: 'Additions of Frontmatter ex:"category:sample,tags:frontmatter"',
         default: ''
@@ -68,13 +63,10 @@ module Middleman
           filename = "#{title}.html.#{ext}"
         end
 
-        if options[:current]
-          file = File.join(filename)
-        else
-          dir  = destination_dir(paths)
-          file = File.join(dir, filename)
-          FileUtils.mkdir_p dir unless Dir.exist?(dir)
-        end
+        dir  = destination_dir(paths)
+        file = File.join(dir, filename)
+
+        FileUtils.mkdir_p dir unless Dir.exist?(dir)
 
         if File.exist?(file)
           say "#{display_path(file)} is exist"
@@ -137,7 +129,7 @@ module Middleman
         end
 
         def display_path(path)
-          path.sub(Regexp.new("^#{source}/"), '')
+          path.sub(Regexp.new("^#{source}/"), "")
         end
       end
     end
