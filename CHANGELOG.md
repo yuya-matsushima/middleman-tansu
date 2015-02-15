@@ -1,3 +1,9 @@
+# 0.1.1
+
+- Add option `--current` (alias: `-c`) into `tansu` command.
+    - If you use `-c` option, `tansu` command create file with _relative path_ from current directory.
+- Add emoji stylesheet in template.
+
 # 0.1.0
 
 - Release 1st stable version.
