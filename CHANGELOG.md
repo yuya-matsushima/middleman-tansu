@@ -1,3 +1,8 @@
+# 0.1.2
+
+- Drop `--current` (alias: `-c`) from `tansu` command.
+    - This option does't work.(but cucumber test was passed.)
+
 # 0.1.1
 
 - Add option `--current` (alias: `-c`) into `tansu` command.
