@@ -69,14 +69,14 @@ module Middleman
         FileUtils.mkdir_p dir unless Dir.exist?(dir)
 
         if File.exist?(file)
-          puts "#{file} is exist"
+          say "#{display_path(file)} is exist"
           exit
         end
 
         File.open(file, 'w') do |f|
           f.puts frontmatter(title, author, date, add_frontmatter)
         end
-        puts "create new tansu page: #{file}"
+        say "create tansu page: #{display_path(file)}"
       end
 
       no_tasks do
@@ -116,14 +116,20 @@ module Middleman
         end
 
         def destination_dir(dir)
-          app    = Middleman::Application
-          source = File.join(app.root, app.config.source)
-
           if dir.nil? || dir == '.'
             source
           else
             File.join(source, dir)
           end
+        end
+
+        def source
+          app = Middleman::Application
+          File.join(app.root, app.config.source)
+        end
+
+        def display_path(path)
+          path.sub(Regexp.new("^#{source}/"), "")
         end
       end
     end
