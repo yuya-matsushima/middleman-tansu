@@ -2,6 +2,8 @@
 
 - Fix: URI is not encoded in sitemap.xml. 
   マルチバイト文字列を含む URI がエンコードされていなかった問題を修正。
+- `-z` option in `tansu` command accepts UPPERCASE or downcase timezone. ex: tokyo, TOKYO
+  tansu コマンドのタイムゾーンのオプションは大文字小文字の値を受け付けるようになりました。
 
 # 0.1.2
 
@@ -10,7 +12,7 @@
 
 # 0.1.1
 
-- Add option `--current` (alias: `-c`) into `tansu` command.
+- Add option `--current` (alias: `-c`) into `tansu` command.(__DROPPED in v0.1.2__)
     - If you use `-c` option, `tansu` command create file with _relative path_ from current directory.
 - Add emoji stylesheet in template.
 
