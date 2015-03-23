@@ -1,3 +1,8 @@
+# 0.1.3
+
+- Fix: URI is not encoded in sitemap.xml. 
+  マルチバイト文字列を含む URI がエンコードされていなかった問題を修正。
+
 # 0.1.2
 
 - Drop `--current` (alias: `-c`) from `tansu` command.
