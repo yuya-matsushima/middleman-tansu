@@ -54,7 +54,8 @@ module Middleman
         paths     = path.split('/')
         title     = paths.pop
         ext       = options[:file]
-        Time.zone = options[:timezone] || ENV['TZ'] || 'UTC'
+        zone      = options[:timezone] || ENV['TZ'] || 'UTC'
+        Time.zone = (zone != 'UTC') ? zone.downcase.capitalize : zone
         date      = options[:date] ? Time.zone.parse(options[:date]) : Time.zone.now
         author    = options[:author] || ENV['USER']
         add_frontmatter = options[:frontmatter]
