@@ -1,3 +1,7 @@
+# 0.1.4
+
+- Remove gemoji
+
 # 0.1.3
 
 - Fix: URI is not encoded in sitemap.xml. 
